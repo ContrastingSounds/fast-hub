@@ -1,0 +1,2 @@
+source activate fast_hub
+uvicorn main:app --reload
