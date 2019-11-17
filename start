@@ -1,2 +1,2 @@
-source activate fast_hub
+source .venv/bin/activate
 uvicorn main:app --reload
