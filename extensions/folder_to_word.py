@@ -4,9 +4,10 @@ from docx import Document
 from docx.shared import Inches
 from fastapi import BackgroundTasks
 
-from core import get_sdk_all_access, send_email
+from core import get_sdk_all_access, send_email, get_temp_file_name, get_output_file_name
 from main import app
 
+slug = 'folder_to_word'
 
 def write_docx_from_folder(folder_id: int):
     sdk = get_sdk_all_access()
@@ -24,7 +25,10 @@ def write_docx_from_folder(folder_id: int):
 
     for idx, look in enumerate(looks):
         image = sdk.run_look(look.id, 'png')
-        image_file = f'temp/look{idx}.png'
+        image_file = get_temp_file_name(
+            slug, 
+            '.'.join(['look', str(look.id), 'png'])
+        )
         with open(image_file, 'wb') as file:
             file.write(image)
         document.add_heading(look.title, 0)
@@ -33,17 +37,22 @@ def write_docx_from_folder(folder_id: int):
         if idx < pages:
             document.add_page_break()
     
-    document.save(f'temp/folder{folder_id}.docx')
+    word_file_name = get_output_file_name(
+        slug, 
+        '.'.join([folder.name, 'docx']),
+        timestamp=True
+    )
+    document.save(word_file_name)
 
 
-@app.get('/extensions/folder_to_word/folder/{folder_id}', status_code=202)
+@app.get('/extensions/%s/folder/{folder_id}' % slug, status_code=202)
 def endpoint(folder_id: int, background_tasks: BackgroundTasks):
     background_tasks.add_task(write_docx_from_folder, folder_id)
 
     return {'message': 'Generating DOCS in background'}
 
 
-@app.get('/extensions/folder_to_word/folders', status_code=200)
+@app.get(f'/extensions/{slug}/folders', status_code=200)
 def folders():
     sdk = get_sdk_all_access()
     all_folders = sdk.all_folders()
