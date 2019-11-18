@@ -11,7 +11,7 @@ Requites Python 3.6+. I haven't tested this for deployment yet. After cloning th
 
 # FastAPI – Automatic OpenAPI documentation
 
-![API Examples](docs/images/open_api_docs.png | width=400)
+<img src="https://github.com/ContrastingSounds/fast-hub/blob/master/docs/images/open_api_docs.png" width="400">
 
 # Adding a new action
 
