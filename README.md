@@ -2,7 +2,7 @@
 Simple Looker Action Hub using Python + FastAPI. Includes SendGrid for emails.
 
 # To use
-Requites Python 3.6+. I haven't tested this for deployment yet. This might work for you, too:
+Requites Python 3.6+. I haven't tested this for deployment yet. After cloning the repo, this might work for you, too:
 
 1. `python3 -m venv .venv`
 2. `source .venv/bin/activate`
