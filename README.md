@@ -9,6 +9,9 @@ Requites Python 3.6+. I haven't tested this for deployment yet. After cloning th
 3. `pip install -r requirements.txt`
 4. `./start`
 
+# SDK credentials in environment variables
+NOTE: This project assumes that you have set SDK credentials as environment variables.
+
 # FastAPI – Automatic OpenAPI documentation
 
 <img src="https://github.com/ContrastingSounds/fast-hub/blob/master/docs/images/open_api_docs_action.png">
