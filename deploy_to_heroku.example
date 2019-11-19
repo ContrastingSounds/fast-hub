@@ -1,0 +1,25 @@
+APPNO=$((1 + RANDOM % 10000000 ))
+APPNAME="fast-hub-$APPNO"
+
+heroku create $APPNAME
+heroku git:remote -a $APPNAME
+
+
+# REQUIRED ENVIRONMENT VARIABLES
+heroku config:set FAST_HUB=$APPNAME.herokuapp.com
+
+heroku config:set LOOKERSDK_BASE_URL=https://your-instance.looker.com:19999
+heroku config:set LOOKERSDK_CLIENT_ID=abc123
+heroku config:set LOOKERSDK_CLIENT_SECRET=123abc123abc
+heroku config:set LOOKERSDK_VERIFY_SSL=True
+
+
+# REQUIRED FOR EMAIL ACTIONS
+heroku config:set SENDGRID_FROM_EMAIL=noreply@example.com
+heroku config:set SENDGRID_API_KEY=abc123
+
+
+# DO NOT CHANGE
+git push heroku master
+heroku ps:scale web=1
+heroku open

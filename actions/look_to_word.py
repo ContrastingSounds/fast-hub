@@ -5,8 +5,8 @@ import datetime
 from docx import Document
 from docx.shared import Inches
 
-from core import action_hub, get_output_file_name, get_temp_file_name, get_sdk_for_schedule, get_sdk_all_access, send_email
 from main import app
+from core import action_hub, get_output_file_name, get_temp_file_name, get_sdk_for_schedule, get_sdk_all_access, send_email
 from api_types import ActionDefinition, ActionList, ActionFormField, ActionRequest, ActionForm
 
 slug = 'look_to_word'

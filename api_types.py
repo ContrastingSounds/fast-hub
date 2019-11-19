@@ -11,9 +11,8 @@ class LookerInstance(BaseModel):
     client_secret: str = None
 
 
-# https://github.com/looker/actions/blob/master/docs/action_api.md#action-form-endpoint
-
 # Actions List Endpoint 
+# https://github.com/looker/actions/blob/master/docs/action_api.md#actions-list-endpoint
 
 class Param(BaseModel):
     name: str
@@ -87,6 +86,7 @@ class ActionList(BaseModel):
 
 
 # Action Execute Endpoint
+# https://github.com/looker/actions/blob/master/docs/action_api.md#action-execute-endpoint
 
 class ScheduledPlan(BaseModel):
     scheduled_plan_id: int
@@ -114,6 +114,7 @@ class ActionRequest(BaseModel):
 
 
 # Action Form Endpoint
+# https://github.com/looker/actions/blob/master/docs/action_api.md#action-form-endpoint
 
 class ActionState(BaseModel):
     data: Optional[str]

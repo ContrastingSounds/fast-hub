@@ -4,8 +4,9 @@ from docx import Document
 from docx.shared import Inches
 from fastapi import BackgroundTasks
 
-from core import get_sdk_all_access, send_email, get_temp_file_name, get_output_file_name
 from main import app
+from core import get_sdk_all_access, send_email, get_temp_file_name, get_output_file_name
+
 
 slug = 'folder_to_word'
 
