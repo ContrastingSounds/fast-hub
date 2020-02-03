@@ -99,6 +99,8 @@ def send_email(
         file_type = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
     elif file_type == 'docx':
         file_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    elif file_type == 'pdf':
+        file_type = 'application/pdf'
 
     mail = Mail(from_email, to_emails, subject, content) 
 
