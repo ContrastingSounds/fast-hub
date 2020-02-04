@@ -14,7 +14,7 @@ class LookerInstance(BaseModel):
 # Actions List Endpoint 
 # https://github.com/looker/actions/blob/master/docs/action_api.md#actions-list-endpoint
 
-class Param(BaseModel):
+class ActionParam(BaseModel):
     name: str
     label: str
     description: str = None
@@ -73,7 +73,7 @@ class ActionDefinition(BaseModel):
     form_url: str = ''
     supported_action_types: List[SupportedActionTypes] = []
     description: str = ''
-    params: List[Param] = []
+    params: List[ActionParam] = []
     supported_formats: List[ActionSupportedFormats] = []
     supported_formattings: List[ActionSupportedFormattings] = []
     supported_visualization_formattings: List[ActionSupportedVisualizationFormattings] = []
