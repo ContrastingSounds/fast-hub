@@ -1,16 +1,16 @@
 # fast-hub
 Simple Looker Action Hub using Python + FastAPI. Includes SendGrid for emails.
 
+# SDK credentials must be configured as environment variables
+NOTE: This project assumes that you have set SDK credentials as environment variables.
+
 # To use
-Requites Python 3.6+. I haven't tested this for deployment yet. After cloning the repo, this might work for you, too:
+Requites Python 3.7+. To run locally:
 
 1. `python3 -m venv .venv`
 2. `source .venv/bin/activate`
 3. `pip install -r requirements.txt`
 4. `./start`
-
-# SDK credentials in environment variables
-NOTE: This project assumes that you have set SDK credentials as environment variables.
 
 # FastAPI – Automatic OpenAPI documentation
 
@@ -19,6 +19,10 @@ NOTE: This project assumes that you have set SDK credentials as environment vari
 # Adding a new action
 
 Any new, conforming action added to the actions folder will automatically be added to the Action Hub.
+
+### New Action Checklist
+
+A new action will require the following:
 
 - [ ] `from core import action_hub` _(imports the base url for the action hub)_
 - [ ] `from core import` ... _any desired helper functions (e.g. to get sdk client, send emails, create temp files, ...)_

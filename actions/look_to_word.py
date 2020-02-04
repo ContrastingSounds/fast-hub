@@ -29,7 +29,7 @@ definition = ActionDefinition(
 
 @app.post(f'/actions/{slug}/form')
 def form():
-    """Standard Action Hub endpoint. Returns this action's sending/scheduling form as a JSON response."""
+    """Form for the Look to Word action: email details and file name for the Word doc."""
     return [
         ActionFormField(
             name='email_address',

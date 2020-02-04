@@ -29,7 +29,7 @@ definition = ActionDefinition(
 
 @app.post(f'/actions/{slug}/form')
 def form():
-    """Standard Action Hub endpoint. Returns this action's sending/scheduling form as a JSON response."""
+    """Dummy endpoint for demonstration purposes."""
     return [
         ActionFormField(
             name='email_address',
@@ -60,7 +60,7 @@ def form():
 
 @app.post(f'/actions/{slug}/action')
 def action(payload: ActionRequest):
-    """Endpoint for the Look to Word action: runs the given Look and embeds in a Word doc along with its description."""
+    """Dummy Endpoint for demonstration purposes."""
     sdk = get_sdk_for_schedule(payload.scheduled_plan.scheduled_plan_id)
     plan = sdk.scheduled_plan(payload.scheduled_plan.scheduled_plan_id)
     look = sdk.look(plan.look_id)

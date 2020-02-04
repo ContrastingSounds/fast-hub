@@ -48,6 +48,7 @@ def write_docx_from_folder(folder_id: int):
 
 @app.get('/extensions/%s/folder/{folder_id}' % slug, status_code=202)
 def endpoint(folder_id: int, background_tasks: BackgroundTasks):
+    """Creates Word document from all looks in a given folder"""
     background_tasks.add_task(write_docx_from_folder, folder_id)
 
     return {'message': 'Generating DOCS in background'}
@@ -55,6 +56,8 @@ def endpoint(folder_id: int, background_tasks: BackgroundTasks):
 
 @app.get(f'/extensions/{slug}/folders', status_code=200)
 def folders():
+    """Folders endpoint for Folder to Word action: returns list of all folders. Does not include root
+    folders i.e. Shared, Users and LookML."""
     sdk = get_sdk_all_access()
     all_folders = sdk.all_folders()
 

@@ -10,7 +10,7 @@ from pprint import pprint
 from PyPDF4 import PdfFileReader, PdfFileWriter
 
 from main import app
-from core import action_hub, get_output_file_name, get_temp_file_name, get_sdk_for_schedule, get_sdk_all_access, send_email
+from core import action_hub, get_input_file_name, get_output_file_name, get_temp_file_name, get_sdk_for_schedule, get_sdk_all_access, send_email
 from api_types import ActionDefinition, ActionList, ActionRequest, ActionForm, ActionFormField, FormSelectOption 
 
 # TODO: Add ability to handle LookML dashboards
@@ -42,7 +42,7 @@ definition = ActionDefinition(
 
 @app.post(f'/actions/{slug}/form')
 def form():
-    """Standard Action Hub endpoint. Returns this action's sending/scheduling form as a JSON response."""
+    """Form for the Compile Report Pack action: email details and pdf defaults (TBD)"""
     return [
         ActionFormField(
             name='email_address',
@@ -104,6 +104,13 @@ def merge_pdfs(paths, output):
         pdf_writer.write(out)
 
 def download_dashboard(sdk, dashboard_id, file_name, size=DEFAULT_PDF_PAGE_SIZE, is_landscape=DEFAULT_PDF_IS_LANDSCAPE):
+    if size == 'A3':
+        height = 2 * DEFAULT_PDF_WIDTH
+        width = DEFAULT_PDF_HEIGHT
+    else:
+        height = DEFAULT_PDF_HEIGHT
+        width = DEFAULT_PDF_WIDTH        
+    
     task = sdk.create_dashboard_render_task(
         dashboard_id= dashboard_id,
         result_format= 'pdf',
@@ -111,8 +118,8 @@ def download_dashboard(sdk, dashboard_id, file_name, size=DEFAULT_PDF_PAGE_SIZE,
             'style': 'tiled',
             'filters': None,
         },
-        height= DEFAULT_PDF_HEIGHT,
-        width= DEFAULT_PDF_WIDTH,
+        height= height,
+        width= width,
         # pdf_paper_size= size,
         # pdf_landscape= is_landscape,
         # TODO: Parameterise PDF settings        
@@ -185,7 +192,7 @@ def action(payload: ActionRequest):
     pdfs_to_merge = []
     for section in report_structure:
         if section['cover']:
-            pdfs_to_merge.append(os.path.join('input', slug, section['cover']))
+            pdfs_to_merge.append(get_input_file_name(slug, section['cover']))
         for page in section['pages']:
             file_name = get_temp_file_name(slug, page['title'].replace(' ', '_')) + '.pdf'
 

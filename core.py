@@ -29,6 +29,9 @@ if not os.path.exists('output'):
 if not os.path.exists('temp'):
     os.makedirs('temp')
 
+def get_input_file_name(module: str, file_name: str, subfolder: str = '') -> str:
+    return os.path.join('input', module, subfolder, file_name)
+
 def get_output_file_name(module: str, file_name: str, timestamp: bool = False, subfolder: str = '') -> str:
     if timestamp:
         timestamp = datetime.strftime(datetime.now(), '%Y-%m-%d.%H:%M:%S')

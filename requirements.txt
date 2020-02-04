@@ -6,8 +6,9 @@ sendgrid==6.1.0
 uvicorn==0.10.4
 gunicorn==20.0.0
 
+# look_to_word
 openpyxl==3.0.0
 python-docx==0.8.10
 
+# compile_report_pack
 PyPDF4==1.27.0
-
