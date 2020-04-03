@@ -8,7 +8,7 @@ import re
 from pprint import pprint
 
 from PyPDF4 import PdfFileReader, PdfFileWriter
-# from typing import cast
+from typing import cast
 # from looker_sdk import methods
 from main import app
 from core import action_hub, get_input_file_name, get_output_file_name, get_temp_file_name, get_sdk_for_schedule, get_sdk_all_access, send_email
@@ -32,6 +32,7 @@ PDF_SIZES = {
 }
 DEFAULT_PDF_PAGE_SIZE = 'A4'
 DEFAULT_PDF_IS_LANDSCAPE = True
+USE_SCALING = False
 
 # DURING DEV ONLY
 DOWNLOAD_DASHBOARDS = True
@@ -84,27 +85,27 @@ def form():
             description='Filename for the generated PDF document',
             required=True,
         ),
-        ActionFormField(
-            name='default_size',
-            label='Default Page Size',
-            description='Default page size where not otherwise specified',
-            default='A4',
-            options=[
-                FormSelectOption(name='A3', label='A3'),
-                FormSelectOption(name='A4', label='A4'),
-                FormSelectOption(name='Letter', label='Letter'),
-            ]
-        ),
-        ActionFormField(
-            name='default_orientation',
-            label='Default Page Orientation',
-            description='Default page orientation where not otherwise specified',
-            default='landscape',
-            options=[
-                FormSelectOption(name='landscape', label='Landscape'),
-                FormSelectOption(name='portrait', label='Portrait'),
-            ]
-        )
+        # ActionFormField(
+        #     name='default_size',
+        #     label='Default Page Size',
+        #     description='Default page size where not otherwise specified',
+        #     default='A4',
+        #     options=[
+        #         FormSelectOption(name='A3', label='A3'),
+        #         FormSelectOption(name='A4', label='A4'),
+        #         FormSelectOption(name='Letter', label='Letter'),
+        #     ]
+        # ),
+        # ActionFormField(
+        #     name='default_orientation',
+        #     label='Default Page Orientation',
+        #     description='Default page orientation where not otherwise specified',
+        #     default='landscape',
+        #     options=[
+        #         FormSelectOption(name='landscape', label='Landscape'),
+        #         FormSelectOption(name='portrait', label='Portrait'),
+        #     ]
+        # )
     ]
 
 def merge_pdfs(paths, output):
@@ -115,11 +116,12 @@ def merge_pdfs(paths, output):
         pdf_reader = PdfFileReader(path[0])
         for idx in range(pdf_reader.getNumPages()):
             page = pdf_reader.getPage(idx)
-            if path[1] == 'A4':
-                print('scaling...')
-                page.scaleTo(812, 595) 
-            else:
-                print('merge as is...')
+            if USE_SCALING:
+              if path[1] == 'A4':
+                  print('scaling...')
+                  page.scaleTo(812, 595) 
+              else:
+                  print('merge as is...')
             pdf_writer.addPage(page)
 
     with open(output, 'wb') as out:
